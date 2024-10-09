@@ -2,11 +2,17 @@ import unittest
 from pathlib import Path
 import logging
 
-from mlopspython_inference.inference_pillow import Inference
+import numpy as np
+
+from mlopspython_inference.inference_pillow import Inference, IModel
 
 BASE_PATH = Path(__file__).resolve().parent
 output_directory = BASE_PATH / "output"
 input_directory = BASE_PATH / "input"
+
+class ModelMock(IModel):
+    def predict(self, img: np.ndarray) -> np.ndarray:
+        return np.array([[0.1, 0.2, 0.7]])
 
 class TestInference(unittest.TestCase):
 
